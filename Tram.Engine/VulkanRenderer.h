@@ -27,7 +27,9 @@ class VulkanRenderer {
 public:
 	VulkanRenderer();
 	void Init(GLFWwindow* window);
+	void Draw();
 	void Destroy();
+	static void FramebufferResizeCallback(GLFWwindow* window, int width, int height);
 
 private:
 
@@ -54,6 +56,17 @@ private:
 	VkRenderPass renderPass;
 	VkPipelineLayout pipelineLayout;
 	VkPipeline graphicsPipeline;
+	std::vector<VkFramebuffer> swapChainFramebuffers;
+	VkCommandPool commandPool;
+	std::vector<VkCommandBuffer> commandBuffers;
+
+	std::vector<VkSemaphore> imageAvailableSemaphores;
+	std::vector<VkSemaphore> renderFinishedSemaphores;
+	std::vector<VkFence> inFlightFences;
+	std::vector<VkFence> imagesInFlight;
+	size_t currentFrame = 0;
+
+	bool framebufferResized = false;
 
 	const std::vector<const char*> validationLayers = { "VK_LAYER_KHRONOS_validation" };
 	const std::vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
@@ -66,6 +79,12 @@ private:
 	void CreateImageViews();
 	void CreateRenderPass();
 	void CreateGraphicsPipeline();
+	void CrateFramebuffers();
+	void CreateCommandPool();
+	void CreateCommandBuffers();
+	void CreateSyncObjects();
+	void RecreateSwapChain();
+	void CleanupSwapChain();
 
 	bool CheckValidationLayerSupport();
 	std::vector<const char*> GetRequiredExtensions();

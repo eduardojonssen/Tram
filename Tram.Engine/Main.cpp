@@ -20,9 +20,11 @@ private:
 	void initWindow() {
 		glfwInit();
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 		window = glfwCreateWindow(WIDTH, HEIGHT, "Tram", nullptr, nullptr);
+		glfwSetWindowUserPointer(window, &vulkanRenderer);
+		glfwSetFramebufferSizeCallback(window, vulkanRenderer->FramebufferResizeCallback);
 	}
 
 	void initRenderer() {
@@ -33,6 +35,7 @@ private:
 	void mainLoop() {
 		while (glfwWindowShouldClose(window) == false) {
 			glfwPollEvents();
+			drawFrame();
 		}
 	}
 
@@ -45,6 +48,10 @@ private:
 
 		glfwDestroyWindow(window);
 		glfwTerminate();
+	}
+
+	void drawFrame() {
+		vulkanRenderer->Draw();
 	}
 };
 
