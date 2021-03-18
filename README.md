@@ -1,14 +1,13 @@
-# TRAM
+## TRAM
 Tram is a personal project where I try to implement Vulkan as the main renderer API. This project is intended for personal studies only.
 
-## Pre-requisites
+### Pre-requisites
 This project is configured to build x64 applications only. No need to configure x86 (32 bits) settings or packages.
 
-### Vulkan SDK
-Download and install the latest [Vulkan SDK](https://vulkan.lunarg.com/sdk/home) if you don't have it yet.
-
-### GLFW
-For window management, [GLFW](https://www.glfw.org/download.html) is required.
+#### External Dependencies
+- **Vulkan SDK**: Download and install the latest [Vulkan SDK](https://vulkan.lunarg.com/sdk/home) if you don't have it yet.
+- **GLFW**: For window management, [GLFW](https://www.glfw.org/download.html) is required.
+- **GLM**: The [GLM](https://github.com/g-truc/glm) is header only library used for mathematical operations.
 
 ## Configuring Visual Studio
 Open the solution, right click **Tram.Engine** project and choose **Properties**.
@@ -17,10 +16,10 @@ Open the solution, right click **Tram.Engine** project and choose **Properties**
 Make sure you have the following entries under *C/C++ > General > Additional Include Directories*:
 
 ```
-E:\GLFW\glfw-3.3.3.bin.WIN64\include;$(VULKAN_SDK)\Include;
+E:\GLFW\glfw-3.3.3.bin.WIN64\include;E:\GLM\include;$(VULKAN_SDK)\Include;
 ```
 
-Replace the **E:\GLFW\glfw-3.3.3.bin.WIN64** with the path to your GLFW install/download folder.
+Replace the **E:\GLFW\glfw-3.3.3.bin.WIN64** and **E:\GLM\** with the path to your GLFW/GLM install/download folder respectively.
 
 ### Library directories
 Under *Linker > General > Additional Library Directories*, check if the GLFW and Vulkan lib dirs are defined:

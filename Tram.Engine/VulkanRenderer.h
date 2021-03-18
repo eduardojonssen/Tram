@@ -66,6 +66,9 @@ private:
 	std::vector<VkFence> imagesInFlight;
 	size_t currentFrame = 0;
 
+	VkBuffer vertexBuffer;
+	VkDeviceMemory vertexBufferMemory;
+
 	bool framebufferResized = false;
 
 	const std::vector<const char*> validationLayers = { "VK_LAYER_KHRONOS_validation" };
@@ -81,6 +84,7 @@ private:
 	void CreateGraphicsPipeline();
 	void CrateFramebuffers();
 	void CreateCommandPool();
+	void CreateVertexBuffer();
 	void CreateCommandBuffers();
 	void CreateSyncObjects();
 	void RecreateSwapChain();
@@ -96,4 +100,5 @@ private:
 	VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 	VkShaderModule CreateShaderModule(const std::vector<char>& code);
+	uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 };
